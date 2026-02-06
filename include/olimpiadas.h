@@ -5,40 +5,40 @@
 
 /*
  * CONFIGURAÇÕES GLOBAIS
- * TAMANHO_LINHA_CSV: 4096 bytes para garantir que linhas longas no CSV não sejam cortadas.
- * MAXIMO_ATLETAS: 1 milhão. Usamos o ID do atleta como índice direto no vetor para ser
- * muito rápido (acesso imediato), em vez de ficar procurando o ID um por um.
+ * TAMANHO_LINHA_CSV: 4096 para garantir que linhas longas no CSV não sejam cortadas.
+ * MAXIMO_ATLETAS: Usando ID do atleta como índice direto no vetor para ter
+ * acesso , em vez de ficar procurando o ID um por um
  */
 #define TAMANHO_LINHA_CSV 4096
 #define TAMANHO_NOME 300
 #define TAMANHO_PEQUENO 100 
 #define MAXIMO_ATLETAS 1000000 
 
-// --- ESTRUTURAS DE DADOS ---
+// Structs: 
 
-// Guarda os dados pessoais do atleta (do arquivo bios.csv)
+// Guarda os dados de cada atleta
 typedef struct {
     int id;                     
     char nome[TAMANHO_NOME];    
     int ano_nascimento;         
     float altura;              
     float peso;             
-    char noc[TAMANHO_PEQUENO];  // Ex: "Brazil" ou "France" (Nome completo)
+    char noc[TAMANHO_PEQUENO];  
 } Atleta;
 
-// Guarda cada resultado/participação (do arquivo results.csv)
+// Guarda cada resultado/participação 
 // Separamos ano e estação para facilitar as contas depois.
 typedef struct {
-    char medalha[TAMANHO_PEQUENO];  // Ex: "Gold", "Silver", "NA"
+    char medalha[TAMANHO_PEQUENO];  // tipo da medalha
     int id_atleta;                  
     int ano_olimpiada;              
-    char estacao[20];               // "Summer" ou "Winter"
+    char estacao[20];               
     char evento[150];               
     char esporte[100];              
-    char noc[TAMANHO_PEQUENO];      // Ex: "BRA" ou "FRA" (Sigla de 3 letras)
+    char noc[TAMANHO_PEQUENO];      
 } Resultado;
 
-// Tabela simples para converter Sigla -> Nome (ex: FRA -> France)
+// Tabela pra converter o noc no nome do País
 typedef struct {
     char noc[TAMANHO_PEQUENO];      
     char regiao[TAMANHO_PEQUENO];      
@@ -50,7 +50,7 @@ typedef struct {
     double populacao_por_ano[63]; 
 } Populacao;
 
-// --- FUNÇÕES ---
+// Funções:
 
 // Leitura dos arquivos CSV
 Atleta* ler_arquivo_bios(const char* caminho_arquivo, int* total_registros);
@@ -67,11 +67,11 @@ int verifica_evento_feminino(char* nome_evento);
 void copiar_string_segura(char* destino, const char* origem, int inicio, int fim);
 void extrair_ano_de_string(char* data_texto, int* destino_ano);
 
-// Gráficos
+// Gráficos:
 void gerar_grafico_barra(char* nome_arquivo, char** etiquetas, double* valores, int quantidade, char* titulo, char* label_eixo_y);
 void gerar_grafico_linha(char* nome_arquivo, double* eixo_x, double* eixo_y, int quantidade, char* titulo, char* label_eixo_x, char* label_eixo_y);
 
-// Lógica das Questões (Inputs são pedidos dentro das funções)
+// Lógica das questões:
 void q1_total_medalhas_por_estacao(Atleta* atletas, int total_atletas, Resultado* resultados, int total_resultados, NocRegiao* regioes, int total_regioes);
 void q2_genero_atletas_por_pais(Atleta* atletas, int total_atletas, Resultado* resultados, int total_resultados);
 void q3_medalhas_vs_populacao(Atleta* atletas, int total_atletas, Resultado* resultados, int total_resultados, Populacao* populacoes, int total_populacoes);
