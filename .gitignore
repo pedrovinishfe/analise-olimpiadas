@@ -1,0 +1,20 @@
+# Ignorar todos os arquivos CSV
+*.csv
+
+# Ignorar arquivos de compilação comuns
+*.o
+*.obj
+*.exe
+*.class
+*.dll
+*.so
+*.out
+*.pyc
+*.pyo
+*.log
+
+# Ignorar pastas de build
+/build/
+/dist/
+/bin/
+/target/
